@@ -2,8 +2,7 @@ package red.sukun1899.kotlin.todolist
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import spark.Spark.get
-import spark.Spark.post
+import spark.Spark.*
 
 /**
  * @author su-kun1899
@@ -14,6 +13,10 @@ fun main(args: Array<String>) {
     val taskRepository = TaskRepository()
     val taskController = TaskController(objectMapper, taskRepository)
 
-    get("/tasks", taskController.index(), jsonTransformer)
-    post("/tasks", taskController.create(), jsonTransformer)
+    path("/tasks") {
+        get("", taskController.index(), jsonTransformer)
+        post("", taskController.create(), jsonTransformer)
+        get("/:id", taskController.show(), jsonTransformer)
+        delete("/:id", taskController.destroy(), jsonTransformer)
+    }
 }
