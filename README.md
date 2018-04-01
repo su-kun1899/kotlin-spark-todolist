@@ -1,4 +1,4 @@
-# kotlin-todolist
+# kotlin-spark-todolist
 
 ## Quick start
 
